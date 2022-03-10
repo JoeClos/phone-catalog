@@ -1,1 +1,41 @@
-<p>phone-list works!</p>
+<main>
+  <div class="col col-lg-2">
+    <h2>{{ title }}:</h2>
+    <!-- <label class="label" for="search" >Search:</label> -->
+
+    <input placeholder="Search" type="search" [(ngModel)]="term" />
+    <!-- <label class="sort" for="sort">Sort by:</label> -->
+    <select class="sort" (change)="sortBy($event)">
+      <option value="search" selected disabled hidden>Search by</option>
+      <option value="age">Newest</option>
+      <option value="name">Alphabetical</option>
+    </select>
+  </div>
+
+  <section class="phone-list">
+    <div class="card mb-3" *ngFor="let phone of productsList | filter: term">
+      <div class="row g-0">
+        <div class="col-md-4">
+          <figure class="photo">
+            <img
+              height="150"
+              width="140"
+              src="{{ 'assets/' + phone.imageUrl }} "
+              routerLink="{{ '/details/' + phone.id }}"
+            />
+          </figure>
+        </div>
+      </div>
+
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title" routerLink="{{ '/details/' + phone.id }}">
+            <a routerLink="{{ '/details' + phone.id }}">{{ phone.name }}</a>
+          </h5>
+
+          <p class="card-text">{{ phone.snippet }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
